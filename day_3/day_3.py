@@ -48,7 +48,7 @@ rows: list[str] = []
 used_gears: dict[dict[dict[list]]] = {}
 
 def aoc_3():
-    with open('test.txt') as file:
+    with open('input_3.txt') as file:
         global rows
         global used_gears
         rows = file.readlines()
@@ -82,10 +82,9 @@ def aoc_3():
                             except KeyError as error:
                                 old_num = None
 
-                            # we have a bug here where we're overriding on the row level if more than 1 gear on same row
+                            # # we have a bug here where we're overriding on the row level if more than 1 gear on same row
                             if old_num:
-                                used_gears[pos[0]] = {pos[1]: [int(cur_num), old_num]}
-                                # used_gears[pos[0]] = used_gears[pos[0]] | {pos[1]: [int(cur_num)]}
+                                used_gears[pos[0]] = used_gears[pos[0]] |{pos[1]: [int(cur_num), old_num]}
                             else:
                                 # doesn't necessarily mean we don't have other chars with values!!!
                                 try:
@@ -108,8 +107,8 @@ def aoc_3():
                     x_used_nums.append([used_nums[0], used_nums[1]])
                     gear_ratios += used_nums[0] * used_nums[1]
 
-        print(used_gears)
-        # print(gear_ratios)
+        # print(used_gears)
+        print(gear_ratios)
         # print(len(x_used_nums))
 
 
