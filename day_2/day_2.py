@@ -7,7 +7,7 @@ rules: dict = {
 }
 
 def aoc_2():
-    with open('input-2.txt') as file:
+    with open('input_2.txt') as file:
         games: list[str] = file.readlines()
         result: int = 0
 
