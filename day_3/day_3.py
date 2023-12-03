@@ -1,4 +1,3 @@
-from functools import reduce
 from typing import Optional
 
 def is_symbol(c: str) -> bool:
@@ -6,9 +5,6 @@ def is_symbol(c: str) -> bool:
 
 def is_gear(c: str) -> bool:
     return c == '*'
-
-# def is_used_gear(c: str) -> bool:
-#     return c == 'x'
 
 def num_is_adjacent_to_symbol(row: int, start: int, end: int) -> Optional[list[int]]:
     # check the sides
@@ -82,11 +78,9 @@ def aoc_3():
                             except KeyError as error:
                                 old_num = None
 
-                            # # we have a bug here where we're overriding on the row level if more than 1 gear on same row
                             if old_num:
                                 used_gears[pos[0]] = used_gears[pos[0]] |{pos[1]: [int(cur_num), old_num]}
                             else:
-                                # doesn't necessarily mean we don't have other chars with values!!!
                                 try:
                                     used_gears[pos[0]] = used_gears[pos[0]] | {pos[1]: [int(cur_num)]}
                                 except KeyError as error:
@@ -107,9 +101,7 @@ def aoc_3():
                     x_used_nums.append([used_nums[0], used_nums[1]])
                     gear_ratios += used_nums[0] * used_nums[1]
 
-        # print(used_gears)
         print(gear_ratios)
-        # print(len(x_used_nums))
 
 
 if __name__ == '__main__':
