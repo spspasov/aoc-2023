@@ -44,7 +44,7 @@ rows: list[str] = []
 used_gears: dict[dict[dict[list]]] = {}
 
 def aoc_3():
-    with open('input_3.txt') as file:
+    with open('test.txt') as file:
         global rows
         global used_gears
         rows = file.readlines()
