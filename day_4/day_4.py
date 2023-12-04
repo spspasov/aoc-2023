@@ -1,11 +1,7 @@
-def aoc_3():
+def aoc_4():
     with open('input_4.txt') as file:
         cards: list[str] = file.readlines()
         won_cards: dict = {}
-        # won_cards = {
-        # 2: 5
-        # 3: 2
-        # ...
 
         for card in cards:
             card = card.strip()
@@ -14,12 +10,9 @@ def aoc_3():
             game_id = card.split(':')[0].split(' ')[-1]
             my_nums = list(dict.fromkeys(nums.split('|')[-1].split(' ')))
 
-            print(game_id)
-
             try:
                 try:
                     iterations = won_cards[int(game_id)] + 1
-                # except UnboundLocalError as error:
                 except KeyError as error:
                     iterations = 1
 
@@ -44,9 +37,6 @@ def aoc_3():
                         except KeyError as error:
                             won_cards[i] = 1
             except KeyError as error:
-                print('-------------------------------------')
-                print('game over')
-                print('-------------------------------------')
                 # game over, we calculate total scores
                 pass
 
@@ -59,4 +49,4 @@ def aoc_3():
 
 
 if __name__ == '__main__':
-    aoc_3()
+    aoc_4()
