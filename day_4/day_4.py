@@ -40,12 +40,13 @@ def aoc_4():
                 # game over, we calculate total scores
                 pass
 
-        print(won_cards)
         sum = 0
         for card_game in won_cards:
             sum += won_cards[card_game]
-        file.close()
+
         print(sum + len(cards))
+
+        file.close()
 
 
 if __name__ == '__main__':
