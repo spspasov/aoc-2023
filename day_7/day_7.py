@@ -3,17 +3,19 @@ def aoc_7():
     with open('input.txt') as file:
         lines = file.readlines()
 
-        alphabet = "23456789TJQKA"
+        alphabet = "J23456789TQKA"
         NOTHING = 0
         PAIR = 1
         TWO_PAIR = 2
         THREE_OF_A_KIND = 3
-        FULL_HOUSE = 3.5
-        FOUR_OF_A_KIND = 4
-        FIVE_OF_A_KIND = 5
+        FULL_HOUSE = 4
+        FOUR_OF_A_KIND = 5
+        FIVE_OF_A_KIND = 6
+
+        JOKER = 1
         CARDS = {
+            'J': 1,
             'T': 10,
-            'J': 11,
             'Q': 12,
             'K': 13,
             'A': 14,
@@ -58,6 +60,9 @@ def aoc_7():
                 if i == 0:
                     continue
 
+                if card == 'J':
+                    continue
+
                 if card == hand[1][i-1]:
                     # we have a match, add it
                     card_counter += 1
@@ -99,6 +104,41 @@ def aoc_7():
                 match_val = FULL_HOUSE
 
             card[1] = [match_val]
+
+        # check the Joker
+        for i, card in enumerate(hand_and_high_card):
+            # skip this as we don't care about Jokers here
+            if card[1] == FIVE_OF_A_KIND:
+                continue
+
+            # if no Jokers, continue, obv
+            if not JOKER in card[0]:
+                continue
+
+            for i in range(operator.countOf(card[0], JOKER)):
+                if card[1] == [NOTHING]:
+                    card[1] = [PAIR]
+                    continue
+
+                if card[1] == [PAIR]:
+                    card[1] = [THREE_OF_A_KIND]
+                    continue
+
+                if card[1] == [TWO_PAIR]:
+                    card[1] = [FULL_HOUSE]
+                    continue
+
+                if card[1] == [THREE_OF_A_KIND]:
+                    card[1] = [FOUR_OF_A_KIND]
+                    continue
+
+                if card[1] == [FULL_HOUSE]:
+                    card[1] = [FOUR_OF_A_KIND]
+                    continue
+
+                if card[1] == [FOUR_OF_A_KIND]:
+                    card[1] = [FIVE_OF_A_KIND]
+                    break
 
         # calculate scores
         sorted_list = sorted(hand_and_high_card, key=operator.itemgetter(1, 0))
