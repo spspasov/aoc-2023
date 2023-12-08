@@ -1,21 +1,19 @@
 import math
+from functools import reduce
 
 import pandas as pd
 def aoc_8():
-    with open('locations-test.txt') as file:
+    with open('locations.txt') as file:
         lines = file.readlines()
-        with open('directions-test.txt') as file2:
+        with open('directions.txt') as file2:
             directions = file2.readlines()[0].strip()
             file2.close()
-        locations = pd.read_csv('locations-test.txt', sep=" = ", engine='python').iloc[:, :1].values.tolist()
+        locations = pd.read_csv('locations.txt', sep=" = ", engine='python').iloc[:, :1].values.tolist()
 
         DIRECTIONS = {
             'L': 0,
             'R': 1,
         }
-
-        starting_locations = []
-        ending_locations = []
 
         locs_and_dirs = {}
         for line in lines:
@@ -23,6 +21,8 @@ def aoc_8():
             line_loc = data[0]
             line_dir = data[1].strip()[1:-1].split(', ')
             locs_and_dirs[line_loc] = line_dir
+
+        starting_locations = []
 
         del(locs_and_dirs['row1'])
 
@@ -32,34 +32,33 @@ def aoc_8():
 
         count = 0
         i = 0
+        all_count = []
 
-        while True:
-            if i == len(directions):
-                i = 0
-                continue
+        for loc in starting_locations:
+            while True:
+                if i == len(directions):
+                    i = 0
+                    continue
+                count += 1
 
-            count += 1
-
-            for loc in starting_locations:
                 dir = directions[i]
                 next = locs_and_dirs[loc][DIRECTIONS[dir]]
+                loc = next
 
-                ending_locations.append(next)
+                if next.endswith('Z'):
+                    all_count.append(count)
+                    count = 0
+                    i = 0
+                    break
 
-            starting_locations = ending_locations
-            ending_locations = []
+                i += 1
 
-            # check if all locations end in Z
-            result = [x for x in starting_locations if not x.endswith('Z')]
+        # find the lcm for all the separate paths
+        lcm = 1
+        for i in all_count:
+            lcm = lcm * i // math.gcd(lcm, i)
+        print(lcm)
 
-            # all entries end in Z
-            if not result:
-                break
-
-            i += 1
-
-        print(count)
-        print(abs(2 * 3) // math.gcd(1, 2, 3))
         file.close()
 
 
