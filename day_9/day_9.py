@@ -11,13 +11,16 @@ def aoc_6():
 
     count = 0
     for diff_list in diff_lists:
+        for l in diff_list:
+            l.reverse()
+
         diff_list.reverse()
         for i, rlist in enumerate(diff_list):
             if i == len(diff_list)-1:
-                print(diff_list)
                 count += diff_list[-1][-1]
+                print(diff_list)
                 break
-            diff_list[i+1].append(int(rlist[-1])+int(diff_list[i+1][-1]))
+            diff_list[i+1].append(int(diff_list[i+1][-1]) - int(rlist[-1]))
     print(count)
 
 diffs = []
