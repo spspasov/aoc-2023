@@ -11,6 +11,4 @@ def aoc_6():
                 print(time - duration*2 + 1)
                 return
 
-
-if __name__ == '__main__':
-    aoc_6()
+aoc_6()

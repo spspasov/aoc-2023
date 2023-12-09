@@ -62,5 +62,4 @@ def aoc_8():
         file.close()
 
 
-if __name__ == '__main__':
-    aoc_8()
+aoc_8()
